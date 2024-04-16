@@ -33,6 +33,7 @@
     "postcss-px-to-viewport": "^1.1.1",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
-    "vite-plugin-mock": "^3.0.1"
+    "vite-plugin-mock": "^3.0.1",
+    "vite-plugin-remove-console": "^2.2.0"
   }
 }

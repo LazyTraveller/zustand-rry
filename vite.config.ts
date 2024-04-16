@@ -4,10 +4,11 @@ import { fileURLToPath, URL } from "node:url";
 import posscssPxToViewport  from "postcss-px-to-viewport";
 import path from "path";
 import { viteMockServe } from 'vite-plugin-mock'
+import removeConsole from "vite-plugin-remove-console";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), viteMockServe()],
+  plugins: [react(), viteMockServe(), removeConsole()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"), // 路径别名
