@@ -1,53 +1,72 @@
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import useGlobalStore from './store/useGlobalStore'
+import "./App.css";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  Link,
+  useLocation,
+} from "react-router-dom";
+
 
 function App() {
-  const globalStore = useGlobalStore((state) => state)
-  console.log(globalStore)
-  const { bears, count, increase, reSet, radomCount, destroy } = globalStore;
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => increase(count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-
-      <div>
-      <h3>Parent</h3>
-      <div>
-        bears ( {bears} ):
-        <button onClick={() => increase()}>增加 </button>
-        <button onClick={() => reSet(10086)}>重置为10086</button>
-      </div>
-
-      <div>
-        count ( {count} ): <button onClick={() => radomCount()}>随机</button>
-      </div>
-
-      <div>
-        <button onClick={() => destroy()}>销毁</button>
-      </div>
-    </div>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+const Nav = () => {
+  const { pathname } = useLocation();
+  console.log("pathname", pathname);
+  const routes = [
+    { path: "/home", title: "Home" },
+    { path: "/about", title: "About" },
+    { path: "/dashboard", title: "Dashboard" },
+  ];
+  return (
+    <ul>
+      {routes.map((route, index) => (
+        <li
+          key={index}
+          style={{ color: pathname.match(route.path) ? "red" : "black" }}
+        >
+          <Link to={route.path}>{route.title}</Link>
+        </li>
+      ))}
+    </ul>
+  );
+};
+const Home = () => {
+  return (
+    <div>
+      hello world, this is Home Page
+      <Nav />
+    </div>
+  );
+};
+
+const About = () => {
+  return (
+    <div>
+      这里是卡拉云的主页
+      <Nav />
+    </div>
+  );
+};
+
+const Dashboard = () => {
+  return (
+    <div>
+      今日活跃用户: 42
+      <Nav />
+    </div>
+  );
+};
+
+export default App;
