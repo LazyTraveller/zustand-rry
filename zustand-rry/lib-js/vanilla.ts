@@ -1,6 +1,9 @@
 type SetStateFunction<T> = (partial: Partial<T> | ((state: T) => Partial<T>), replace?: boolean) => void;
 type GetStateFunction<T> = () => T;
 
+/**
+ * 这层主要是发布和订阅的实现
+ */
 interface StoreApi<T> {
   setState: SetStateFunction<T>;
   subscribe: (fn: (state: T, previousState: T) => void) => () => void;
